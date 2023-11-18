@@ -17,6 +17,9 @@ public class House extends Building{
   /** Constructor */
   public House() {
     super("<Name Unknown>", "<Address Unknown>", 1);
+    this.residents = new ArrayList<String> ();
+    this.hasDiningRoom = false;
+    System.out.println("You have built a house: 🏠");
   }
 
   /** Accessor for if house has dining room */
@@ -34,7 +37,7 @@ public class House extends Building{
    * @param name name of resident
    */
   public void moveIn(String name){
-    if (this.residents.contains(name) == false) {
+    if (!this.residents.contains(name)) {
       this.residents.add(name);
     }
     else{
@@ -48,7 +51,7 @@ public class House extends Building{
    * @return name of resident who moved out
    */
   public String moveOut(String name){
-    if (this.residents.contains(name) == true){
+    if (this.residents.contains(name)){
       this.residents.remove(name);
       return name;}
     else{

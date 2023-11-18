@@ -1,4 +1,4 @@
-/* This is a stub for the Library class */
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Library extends Building{
@@ -52,10 +52,10 @@ public class Library extends Building{
    * @param title book to be checked out
    */
   public void checkOut(String title){
-    if (this.containsTitle(title) == false){
+    if (!this.containsTitle(title)){
       throw new RuntimeException("This library does not have " + title);
     }
-    else if (this.isAvailable(title) == false){
+    else if (!this.isAvailable(title)){
       throw new RuntimeException(title + " has already been checked out.");
     }
     else{
@@ -68,10 +68,10 @@ public class Library extends Building{
    * @param title book to be returned
    */
   public void returnBook(String title){
-    if (this.containsTitle(title) == false){
+    if (!this.containsTitle(title)){
       throw new RuntimeException("This library does not have " + title);
     }
-    else if (this.isAvailable(title) == true){
+    else if (this.isAvailable(title)){
       throw new RuntimeException(title + " has not been checked out.");
     }
     else{
@@ -99,8 +99,21 @@ public class Library extends Building{
 
   /** Prints the collection in a readable fashion */
   public void printCollection(){
-    System.out.println("Books in collection=checkout status");
-    System.out.println(this.collection.toString());
+    System.out.println("The current collection: ");
+    if (this.collection.size() == 0){
+      System.out.println("There are currently no books in the collection.");
+    }
+    else{
+      String inCollection = " is ";
+      String element = "";
+      for (Enumeration<String> e = this.collection.keys(); e.hasMoreElements();){
+        element = e.nextElement();
+        if (!this.collection.get(element)){
+          inCollection = " is not ";
+        }
+        System.out.println(element + inCollection + "currently checked out.");
+      }
+    }
   }
 
   public static void main(String[] args) {
